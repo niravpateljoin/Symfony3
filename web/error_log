@@ -1,0 +1,18 @@
+[19-Sep-2017 07:09:38 UTC] PHP Warning:  require(/home/weedmain/dispensary.weedmain.com/web/../vendor/autoload.php): failed to open stream: No such file or directory in /home/weedmain/dispensary.weedmain.com/web/app.php on line 6
+[19-Sep-2017 07:09:38 UTC] PHP Fatal error:  require(): Failed opening required '/home/weedmain/dispensary.weedmain.com/web/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/weedmain/dispensary.weedmain.com/web/app.php on line 6
+[27-Sep-2017 15:33:48 UTC] PHP Fatal error:  require(): Failed opening required '/home/weedmain/dispensary.weedmain.com/var/cache/prod/doctrine/orm/Proxies/__CG__DirectoryPlatformAppBundleEntityCategory.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/weedmain/dispensary.weedmain.com/vendor/doctrine/common/lib/Doctrine/Common/Proxy/AbstractProxyFactory.php on line 209
+[27-Sep-2017 15:33:58 UTC] PHP Fatal error:  require(): Failed opening required '/home/weedmain/dispensary.weedmain.com/var/cache/prod/doctrine/orm/Proxies/__CG__DirectoryPlatformAppBundleEntityCategory.php' (include_path='.:/opt/cpanel/ea-php70/root/usr/share/pear') in /home/weedmain/dispensary.weedmain.com/vendor/doctrine/common/lib/Doctrine/Common/Proxy/AbstractProxyFactory.php on line 209
+[30-Sep-2017 20:43:31 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'weedmain'@'localhost' (using password: YES) in /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'weedmain', '~$DmW;+hu{ut', Array)
+#1 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(44): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'weedmain', '~$DmW;+hu{ut', Array)
+#2 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'weedmain', '~$DmW;+hu{ut', Array)
+#3 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/weedmain/dispensary.weedmain.com/vendor/doctrine in /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103
+[30-Sep-2017 20:48:14 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'weedmain'@'localhost' (using password: YES) in /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:43
+Stack trace:
+#0 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(43): PDO->__construct('mysql:host=127....', 'weedmain', '~$DmW;+hu{ut', Array)
+#1 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(44): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'weedmain', '~$DmW;+hu{ut', Array)
+#2 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(360): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'weedmain', '~$DmW;+hu{ut', Array)
+#3 /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(429): Doctrine\DBAL\Connection->connect()
+#4 /home/weedmain/dispensary.weedmain.com/vendor/doctrine in /home/weedmain/dispensary.weedmain.com/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 103

@@ -1,0 +1,38 @@
+{% extends 'FrontBundle::Layout/base.html.twig' %}
+
+{% set title = 'Agent Listings'|trans %}
+	
+{% block title %}{{ title }}{% endblock %}
+
+{% block javascripts %}
+<script>
+    var filterSortBy = "{{ path('agent_sort_by',{'id': user.getId()}) }}";
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% include 'FrontBundle::Helper/content_title.html.twig' %}
+
+        <input type="hidden" name="slug" value="{{ user.id() }}" id="slug">
+        <input type="hidden" value="" id="viewData">
+        <input type="hidden" value="agent" id="listCategory">
+        <div class="content" id="sortByFilterData">
+            {% if listings|length %}
+                <div class="row">
+                    {% for listing in listings %}
+                        <div class="col-md-3 col-sm-4 col-6 displayView">
+                            {% include 'FrontBundle::Listing/box.html.twig' %}
+                        </div><!-- /.col-* -->
+                    {% endfor %}
+                </div><!-- /.row -->
+
+                <div class="navigation">
+                    {{ knp_pagination_render(listings) }}
+                </div><!-- /.navigation -->
+            {% else %}
+                {% include 'AppBundle::Helper/empty.html.twig' %}
+            {% endif %}
+        </div><!-- /.content -->
+    </div><!-- /.container -->
+{% endblock %}

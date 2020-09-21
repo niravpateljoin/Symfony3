@@ -1,0 +1,27 @@
+<div class="hero-wrapper">
+    <div class="hero">
+        <div class="container">
+            <h1>{{ 'Search Product'|trans }}</h1>
+            <p>{{ 'Get your lost product back by searching here on related location and start listing found products today..'|trans }}</p>
+
+            {{ form_start(filter, {'name': 'filter-hero-form'}) }}
+            {{ form_widget(filter) }}
+            {{ form_end(filter) }}
+
+            {% if categories_popular|length %}
+                <div class="hero-categories">
+                    <strong>{{ 'Popular categories'|trans }}</strong>
+
+                    <ul>
+                        {% for category in categories_popular %}
+                            <li>
+                                <a href="{{ path('category_detail', {'slug': category.getSlug()})}}">
+                                    {{ category.getName() }} <span>({{ category.getPublishedListings()|length }})</span>
+                                </a>{% if not loop.last %},{% endif %}</li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- /.hero-categories -->
+            {% endif %}
+        </div><!-- /.container -->
+    </div><!-- /.hero -->
+</div><!-- /.hero-wrapper -->

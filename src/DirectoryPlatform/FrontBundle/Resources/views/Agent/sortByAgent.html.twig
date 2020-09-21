@@ -1,0 +1,13 @@
+{% if listings|length %}
+	<div class="row allListCategory">
+		
+		{% for listing in listings %}
+			<div class="col-md-3 col-sm-4 col-6 categoryCard displayView">
+				{% include 'FrontBundle::Listing/box.html.twig' %}
+			</div><!-- /.col-* -->
+		{% endfor %}
+	</div><!-- /.row -->
+      
+{% else %}					
+	{% include 'AppBundle::Helper/empty.html.twig' %}
+{% endif %}

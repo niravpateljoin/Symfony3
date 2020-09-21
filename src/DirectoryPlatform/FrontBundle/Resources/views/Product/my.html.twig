@@ -1,0 +1,111 @@
+{% extends 'FrontBundle::Layout/base.html.twig' %}
+
+
+{% set title = 'My Products'|trans %}
+
+{% set actions = [
+    {
+        'link': path('product_create'),
+        'title': 'Create'|trans,
+    }
+] %}
+
+{% set breadcrumbs = [
+    {
+        'link': path('homepage'), 'title': 'Home'|trans,
+    },
+    {
+        'title': 'Products'|trans,
+    },
+    {
+        'title': 'My Products'|trans
+    }
+] %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}    
+    <div class="container">        
+        {% include 'FrontBundle::Helper/content_title.html.twig' %}
+
+        {% if products|length %}
+            <div class="table-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+							<th>{{ 'ProductName'|trans }}</th>
+                            <th class="table-center">{{ 'Category'|trans }}</th>
+                            <th class="table-center">{{ 'Slug'|trans }}</th>
+                            <th class="table-center">{{ 'Sku'|trans }}</th>
+                            <th class="table-center">{{ 'Status'|trans }}</th>
+                            <th class="table-min-width">{{ 'Action'|trans }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>
+                                    <div class="table-card">
+                                        <div class="table-card-content">
+                                            <div class="table-card-content-inner">
+                                                <div class="table-card-title">
+                                                   {% if product.getProductName() %}
+													   {{ product.getProductName() }}
+													{% else %}
+														-
+													{% endif %}
+                                                </div>
+                                            </div><!-- /.table-card-content-inner -->
+                                        </div><!-- /.table-card-content -->
+                                    </div><!-- /.table-card -->
+                                </td>
+
+                                <td class="table-min-width table-center">
+									{% if product.getCategory() %}
+										<a href="{{ path('category_detail', {'slug': product.getCategory().getSlug()})}}" target="_blank">
+											{{ product.getCategory().getName() }}
+										</a>
+									{% else %}
+										-
+									{% endif %}
+                                </td>
+
+                                <td class="table-min-width table-center table-status">
+                                    {{ product.getSlug() }}
+                                </td>
+
+                                <td class="table-min-width table-center table-status">
+                                   {{ product.getSku() }}
+                                </td>
+
+                                <td class="table-min-width table-center table-status">
+                                    {% if product.getEnabled()=="1" %}
+									   Enabled
+									   {% else %}
+											Disabled
+										{% endif %}
+                                </td>
+
+                                <td class="table-min-width">
+                                    <div class="btn-group">    
+                                        
+                                        <a class="btn" href="{{ path('product_update', {'id': product.getId()}) }}">{{ 'Update'|trans }}</a>
+                                        <a class="btn" href="{{ path('product_delete', {'id': product.getId()}) }}">{{ 'Delete'|trans }}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div><!-- /.table-wrapper -->
+
+            <div class="navigation">
+                {{ knp_pagination_render(products) }}
+            </div><!-- /.navigation -->                     
+        {% else %}
+            {{ include('AppBundle::Helper/empty.html.twig') }}
+        {% endif %}
+    </div><!-- /.container -->
+{% endblock %}

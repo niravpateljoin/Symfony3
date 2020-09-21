@@ -1,0 +1,58 @@
+<div class="bg-detail-pdl" style="margin-bottom: 12px;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="item-heading--title grid-3-5 grid-md-2-5 col-md-6 pdr0">
+				<a data-toggle="collapse" data-target="#pDesc{{ product.getId()}}" id="clickeventdiv"><i id="clickevent" onclick="onclickBody(this)" class="fa fa-plus-circle" style="font-size: 22px;vertical-align: top;"></i></a>
+				<h3 style="margin:0;display: inline;">{{ product.getProductName()|trans }}</h3>
+			</div>
+			<div class="item-heading--prices grid-1 grid-md-2-5 col-md-6 pdr0">	
+				{% if product.getPriceGram() %}
+				<div class="item-heading--price copy--centered col-md-12">
+					<span class="colored price copy--xxs copy-sm--sm copy-md--md copy--bold">{{ product.getPriceGram()|localizedcurrency(currency) }}</span><br> 1 GRAM 
+				</div>{% endif %}
+				{% if product.getPrice2Gram() %}<div class="item-heading--price copy--centered col-md-12">
+					<span class="colored price copy--xxs copy-sm--sm copy-md--md copy--bold">
+					{{ product.getPrice2Gram()|localizedcurrency(currency) }}</span><br> 2 GRAM 
+				</div>{% endif %}
+				{% if product.getPrice35Gram() %}
+				<div class="item-heading--price copy--centered col-md-12">
+					<span class="colored price copy--xxs copy-sm--sm copy-md--md copy--bold">
+					{{ product.getPrice35Gram()|localizedcurrency(currency) }}</span><br> 3.5 GRAM 
+				</div>{% endif %}
+				{% if product.getPrice4Gram() %}
+				<div class="item-heading--price copy--centered col-md-12">
+					<span class="colored price copy--xxs copy-sm--sm copy-md--md copy--bold">
+					{{ product.getPrice4Gram()|localizedcurrency(currency) }}</span><br> 4 GRAM 
+				</div>{% endif %}
+				{% if product.getPrice7Gram() %}
+				<div class="item-heading--price copy--centered col-md-12">
+					<span class="colored price copy--xxs copy-sm--sm copy-md--md copy--bold">
+					{{ product.getPrice7Gram()|localizedcurrency(currency) }}</span><br> 7 GRAM 
+				</div>{% endif %}
+				{% if product.getPrice14Gram() %}
+				<div class="item-heading--price copy--centered col-md-12">
+					<span class="colored price copy--xxs copy-sm--sm copy-md--md copy--bold">
+					{{ product.getPrice14Gram()|localizedcurrency(currency) }}</span><br> 14 GRAM
+				</div>{% endif %}
+				{% if product.getPrice28Gram() %}
+				<div class="item-heading--price copy--centered col-md-12">
+					<span class="colored price copy--xxs copy-sm--sm copy-md--md copy--bold">
+					{{ product.getPrice28Gram()|localizedcurrency(currency) }}</span><br> 28 GRAM 
+				</div>{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="pDesc{{ product.getId()}}" class="collapse" style="padding:0px 15px">{{ product.getDescription()|raw }}</div>
+			<div class="table-card-subtitle col-md-12">
+				{% if product.getPercentageThc() %}{{product.getPercentageThc()|trans}}% THC{% endif %}&nbsp;
+				{% if product.getPercentageThca() %}{{product.getPercentageThca()|trans}}% THCA{% endif %}&nbsp;
+				{% if product.getPercentageCbd() %}{{product.getPercentageCbd()|trans}}% CBD{% endif %}&nbsp;
+				{% if product.getPercentageCba() %}{{product.getPercentageCba()|trans}}% CBA{% endif %}&nbsp;
+				{% if product.getPercentageCbn() %}{{product.getPercentageCbn()|trans}}% CBN{% endif %}					
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,158 @@
+
+<div class="content-title {% if class is defined %}{{ class }}{% endif %}">
+    {% if breadcrumbs is defined %}
+        <ol class="breadcrumb">
+            {% for breadcrumb in breadcrumbs %}
+                {% if breadcrumb.link is defined %}
+                    <li class="breadcrumb-item"><a href="{{ breadcrumb.link }}">{{ breadcrumb.title }}</a></li>
+                {% else %}
+                    <li class="breadcrumb-item active">{{ breadcrumb.title }}</li>
+                {% endif %}
+            {% endfor  %}
+        </ol>
+    {% endif %}
+
+    {% if title is defined %}
+        <h2>
+            {{ title }}
+
+            {% if subtitle is defined %}
+                <small>{{ subtitle }}</small>
+            {% endif %}
+        </h2>
+        {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+        {% set currentPathVal = ('/app_dev.php' in currentPath) ? currentPath|replace({'/app_dev.php': ''}) : currentPath %}
+        {% if listings is defined and currentPathVal != '/account/listings' %}
+       {#  <div style="" class="headerFilterSection">
+                <span class="viewText">VIEW</span>
+                <button onclick="listView();" class="viewTab" title="List View"><i class="fa fa-list"></i></button>
+                <button onclick="gridView();" class="viewTab active" title="Grid View"><i class="fa fa-th"></i></button>
+                <button onclick="laptopView();" class="viewTab" style="margin-right: 10px;" title="Desktop View"><i class="fa fa-laptop"></i></i></button>
+                <div style="border-left:2px solid gray; display: -webkit-inline-box">
+                    <i class="fa fa-filter filterIcon"></i>
+                    <span class="sortByText" style="">SORT BY: </span>
+                    <select name="sortBy" id="sortByFilter" style="width:150px;" onchange="changeFilterSortBy()">
+                        <option value="">Near By My Location</option>
+                        <option value="0">Date Published</option>
+                        <option value="1">Relevance</option>
+                        <option value="2">Price: Lowest</option>
+                        <option value="3">Price: Highest</option>
+                    </select>
+                </div>
+                <input type="hidden" id="viewData" value=""/>
+        </div> #}
+           
+                <div style="pointer-events: painted; padding-bottom:20px">
+                    <div class="listing-options-group">
+                        <a onclick="listView();" class="viewTab" title="{{ 'Show listings in computer'|trans }}">
+                            <i class="fa fa-desktop"></i>
+                        </a>
+                        <a onclick="gridView();" class="viewTab active"  title="{{ 'Show listings in grid'|trans }}">
+                            <i class="fa fa-th"></i>
+                        </a>
+                        <a onclick="laptopView();" class="viewTab" title="{{ 'Show listings in rows'|trans }}">
+                            <i class="fa fa-navicon"></i>
+                        </a>
+                        <input type="hidden" id="viewData" value=""/>
+                        <select name="sortBy" id="sortByFilter" class="form-control" onchange="changeFilterSortBy()" >
+                            <option value="">Near By My Location</option>
+                            <option value="0">Date Published</option>
+                            <option value="1">Relevance</option>
+                            <option value="2">Price: Lowest</option>
+                            <option value="3">Price: Highest</option>
+                        </select>
+                    </div><!-- /.listing-options-group -->
+                </div><!-- /.listing-options -->
+
+                        
+                
+            
+        {% endif %}
+    {% endif %}
+
+    {% if description is defined %}
+        <p>{{ description }}</p>
+    {% endif %}
+
+    {% if actions is defined %}
+        <div class="content-title-actions">
+            {% for action in actions %}
+                <a href="{{ action.link }}" class="btn btn-secondary">
+                    {{ action.title }}
+                </a>
+            {% endfor %}
+        </div><!-- /.content-title-actions -->
+    {% endif %}        
+</div><!-- /.content-title -->
+
+{% block javascripts %}
+    <script type="text/javascript">
+
+    
+    
+
+        function listView(){
+            if ($('.displayView').hasClass('col-md-3 col-sm-4 col-6')){
+                $('.displayView').removeClass('col-md-3 col-sm-4 col-6 ');
+            }
+            $('#viewData').val('list');
+            $('.displayView').addClass('col-md-12 col-sm-12 col-12');
+            $('.displayGridLapView').css('display','none');
+            $('.displayListView').css('display','block');
+
+        }
+        function gridView(){
+            if ($('.displayView').hasClass('col-md-12 col-sm-12 col-12')){
+                $('.displayView').removeClass('col-md-12 col-sm-12 col-12');
+            }
+            $('#viewData').val('grid');
+            $('.displayView').addClass('col-md-3 col-sm-4 col-6');
+            $('.displayGridLapView').css('display','block');
+            $('.displayListView').css('display','none');
+        }
+        function laptopView(){
+            if ($('.displayView').hasClass('col-md-3 col-sm-4 col-6')){
+                $('.displayView').removeClass('col-md-3 col-sm-4 col-6');
+            }
+            $('#viewData').val('laptopView');
+            $('.displayView').addClass('col-md-12 col-sm-12 col-12');
+            $('.displayGridLapView').css('display','block');
+            $('.displayListView').css('display','none');
+        }
+
+        function changeFilterSortBy(){
+            var view = $('#viewData').val();
+            var filterCategoryUrl = filterSortBy;
+            var filterData = $('#sortByFilter').val();
+            var id = $('#slug').val();
+            var list = $('#listCategory').val();
+            $.ajax({
+                    url: filterCategoryUrl,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: { filterData: filterData, id:id , list:list },
+                    success: function(result) {
+                        console.log(result);
+                        if( result.tabContent ){
+                            $('#sortByFilterData').html("");
+                            $('#sortByFilterData').html(result.tabContent);
+                        }
+                        if(view == 'list'){
+                            listView();
+                        }
+                        if(view == 'grid'){
+                            gridView();
+                        }
+                        if(view == 'laptopView'){
+                            laptopView();
+                        }
+                    }
+                });
+
+
+        }
+
+       
+    </script>
+{% endblock %}

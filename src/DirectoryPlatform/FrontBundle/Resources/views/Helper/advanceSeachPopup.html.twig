@@ -1,0 +1,29 @@
+{% set advanceFilter  = common_helper.generateSearchFilterForm() %}
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Search Product</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="filter">
+          {{ form_start(advanceFilter) }}
+          {{ form_widget(advanceFilter) }}
+          {{ form_end(advanceFilter) }}
+      </div>
+    </div>
+    <div class="modal-footer" style="display:none;">
+    </div>
+  </div>
+</div>
+
+{% block javascripts %}
+
+  {% javascripts
+  '@FrontBundle/Resources/public/js/scripts.js' %}
+      <script src="{{ asset_url }}" type="text/javascript"></script>
+  {% endjavascripts %}
+  
+{% endblock %}

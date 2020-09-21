@@ -1,0 +1,81 @@
+{% extends 'FrontBundle::Layout/base.html.twig' %}
+
+{% set title = location.getName() %}
+
+{% set subtitle = listings|length ~ ' ' ~ 'listings available'|trans %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    var filterSortBy = "{{ path('location_sort_by',{'slug': location.getSlug()}) }}";
+    var defaultDisplayNumber = parseInt("{{ common_helper.getShowingProductNumber() }}");
+    var loadMoreLocationData = "{{ path('load_more_location_data') }}";
+    $(document).ready(function () {
+        var countOfCategory = defaultDisplayNumber;
+        $("#loadLocationListItems").click(function(e){ // click event for load more
+	        var id = $('#slug').val();
+	        var view = $('#viewData').val();
+            loadingSpinner('#loadLocationListItems', '#loadingLocation');
+            e.preventDefault();
+            $.ajax({
+                url: loadMoreLocationData,
+                dataType: 'json',
+                type: 'POST',
+                data: { count: defaultDisplayNumber, locationId: id, offset: countOfCategory },
+                success: function(result) {
+                    if( result.tabContent ){
+                        $('#loadingLocation').text("");
+                        $('.allListCategory').append(result.tabContent);
+                        if(view == 'list'){
+                            listView();
+                        }
+                        if(view == 'grid'){
+                            gridView();
+                        }
+                        if(view == 'laptopView'){
+                            laptopView();
+                        }
+                        $('#loadLocationListItems').show();
+                        if( $('.categoryCard:visible').length == result.data.categoryCount ){
+                            $('#loadLocationListItems').hide();
+                        }
+                        countOfCategory = countOfCategory + defaultDisplayNumber;
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		{% include 'FrontBundle::Helper/content_title.html.twig' %}		
+
+		<input type="hidden" name="slug" value="{{ location.id() }}" id="slug">
+		<input type="hidden" value="" id="viewData">
+		<input type="hidden" value="location" id="listCategory">
+		<div class="content" id="sortByFilterData">
+			{% if listings|length %}
+				<div class="row allListCategory">
+					{% for listing in listings %}
+						<div class="col-md-3 col-sm-4 col-6 categoryCard displayView">
+							{% include 'FrontBundle::Listing/box.html.twig' %}
+						</div><!-- /.col-* -->
+					{% endfor %}
+				</div>
+				{% if totalListing > common_helper.getShowingProductNumber() %}
+                    <p class="text-center" id="loadingLocation"></p>
+                    <div class="btn-center"> 
+	                   <a href="#" class="btn btn-primary" id="loadLocationListItems">Load More</a>
+                   </div>
+                {% endif %}
+			{% else %}
+				{% include 'AppBundle::Helper/empty.html.twig' %}
+			{% endif %}
+		</div><!-- /.content -->
+	</div><!-- /.container -->
+{% endblock %}
